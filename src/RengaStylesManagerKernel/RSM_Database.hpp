@@ -4,8 +4,12 @@
 #include <QSqlRecord>
 
 #include "RSM_DatabaseTablesProcessing.hpp"
+
 #include "RSM_DatabaseTableDbinfo.hpp"
 #include "RSM_DatabaseTablePaths.hpp"
+#include "RSM_DatabaseTableBindata.hpp"
+#include "RSM_DatabaseTableGeometry.hpp"
+#include "RSM_DatabaseTableIcons.hpp"
 
 namespace RSM_Kernel
 {
@@ -23,8 +27,6 @@ namespace RSM_Kernel
 		*/
 		RSM_Database(const QString& path);
 
-		
-
 		//----------Methods-----------------------------------------------
 		//Работа с данными
         const RSM_DatabaseTableDbinfo* GetTableDbInfo();
@@ -36,6 +38,11 @@ namespace RSM_Kernel
         const QSqlDatabase* GetDatabase();
     private:
         const RSM_DatabaseTableDbinfo* mTableDbInfo = nullptr;
+        const RSM_DatabaseTablePaths* mTablePaths = nullptr;
+        const RSM_DatabaseTableBindata* mTableBinData = nullptr;
+        const RSM_DatabaseTableGeometry* mTableGeometry = nullptr;
+        const RSM_DatabaseTableIcons* mTableIcons = nullptr;
+
         QSqlDatabase mRSM_db;
 	};
 }

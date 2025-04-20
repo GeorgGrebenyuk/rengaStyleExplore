@@ -35,9 +35,6 @@
     <ClInclude Include="RengaStylesManagerKernel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RSM_Database.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RSM_Settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,11 +56,32 @@
     <ClInclude Include="RSM_DatabaseTableBindata.hpp">
       <Filter>DatabaseProcessing</Filter>
     </ClInclude>
+    <ClInclude Include="RSM_SqliteUtils.hpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_DatabaseTableIcons.hpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_DatabaseTableGeometry.hpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_GeometryObj.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_Database.hpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_DatabaseTableRengaProjects.hpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="RSM_RengaFileReading.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enumerations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RSM_Database.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RSM_Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,6 +102,27 @@
     </ClCompile>
     <ClCompile Include="RSM_DatabaseTableBindata.cpp">
       <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_SqliteUtils.cpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_DatabaseTableIcons.cpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_DatabaseTableGeometry.cpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_GeometryObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_Database.cpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_DatabaseTableRengaProjects.cpp">
+      <Filter>DatabaseProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="RSM_RengaFileReading.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

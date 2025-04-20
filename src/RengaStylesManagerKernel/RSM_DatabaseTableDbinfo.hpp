@@ -10,10 +10,11 @@ namespace RSM_Kernel
     class RSM_DatabaseTableDbinfo : public RSM_DatabaseTablesProcessing
     {
     public:
+        RSM_DatabaseTableDbinfo(const QSqlDatabase* db);
         const QString GetTableName() override;
-        void CreateTableDefinition(const QSqlDatabase* db) override;
-        void SetData(const QSqlDatabase* db, const QString& key, const QString& value);
-        void GetAllData(const QSqlDatabase* db, QMap<QString, QString>& data);
+        void CreateTableDefinition() override;
+        void SetData(const QString& key, const QString& value);
+        void GetAllData(QMap<QString, QString>& data);
     };
 }
 

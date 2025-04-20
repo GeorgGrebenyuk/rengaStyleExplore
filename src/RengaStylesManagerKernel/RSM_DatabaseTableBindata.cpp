@@ -1,56 +1,49 @@
 #include "pch.h"
 #include "RSM_DatabaseTableBindata.hpp"
+#include "RSM_SqliteUtils.hpp"
 
 namespace RSM_Kernel
 {
+    RSM_DatabaseTableBindata::RSM_DatabaseTableBindata(const QSqlDatabase* db)
+    {
+        this->m_db = db;
+    }
+
     const QString RSM_DatabaseTableBindata::GetTableName()
     {
-        return QString("dbinfo");
+        return QString("bindata");
     }
 
-    void RSM_DatabaseTableBindata::CreateTableDefinition(const QSqlDatabase* db)
+    void RSM_DatabaseTableBindata::CreateTableDefinition()
     {
-        QSqlDatabase* tmpDbPtr = const_cast<QSqlDatabase*>(db);
+        QSqlDatabase* tmpDbPtr = const_cast<QSqlDatabase*>(m_db);
         QSqlQuery databaseQuery(*tmpDbPtr);
 
+        RSM_SqliteUtils sqliteUtils(m_db);
         databaseQuery.prepare(
-            QString("CREATE TABLE IF NOT EXISTS") +
+            QString("CREATE TABLE IF NOT EXISTS ") +
             GetTableName() +
             QString("(rowid INTEGER PRIMARY KEY NOT NULL, data BLOB not null); "));
-        ExecQuerry(&databaseQuery);
+        sqliteUtils.ExecQuerry(&databaseQuery);
     }
 
-    qint32 RSM_DatabaseTableBindata::AddData(const QSqlDatabase* db, const QString& filePath)
+    qint32 RSM_DatabaseTableBindata::AddData(const QString& filePath)
     {
         QFile fileDef(filePath);
         if (!fileDef.exists()) return -1;
-        return AddData(db, fileDef.readAll());
+        RSM_SqliteUtils sqliteUtils(m_db);
+        return sqliteUtils.InsertData(GetTableName(), "data", fileDef.readAll());
     }
 
-    qint32 RSM_DatabaseTableBindata::AddData(const QSqlDatabase* db, const QByteArray data)
+    qint32 RSM_DatabaseTableBindata::AddData(const QByteArray data)
     {
-        QSqlDatabase* tmpDbPtr = const_cast<QSqlDatabase*>(db);
-        QSqlQuery databaseQuery(*tmpDbPtr);
-
-        databaseQuery.prepare(
-            QString("INSERT INTO ") +
-            GetTableName() +
-            QString(" (data) values (:bytesData)"));
-        databaseQuery.bindValue(":bytesData", data);
-        if (ExecQuerry(&databaseQuery)) return GetMaxRowid(db);
+        RSM_SqliteUtils sqliteUtils(m_db);
+        return sqliteUtils.InsertData(GetTableName(), "data", data);
     }
 
-    void RSM_DatabaseTableBindata::GetData(const QSqlDatabase* db, const qint32 rowid, QByteArray* data)
+    void RSM_DatabaseTableBindata::GetData(const qint32 rowid, QByteArray* data)
     {
-        QSqlDatabase* tmpDbPtr = const_cast<QSqlDatabase*>(db);
-        QSqlQuery databaseQuery(*tmpDbPtr);
-
-        databaseQuery.prepare(
-            QString("SELECT * FROM ") +
-            GetTableName() +
-            QString(" WHERE rowid = ") + QString::number(rowid));
-        if (!ExecQuerry(&databaseQuery)) return;
-        databaseQuery.next();
-        *data = databaseQuery.value(0).toByteArray();
+        RSM_SqliteUtils sqliteUtils(m_db);
+        sqliteUtils.GetDataByRowid(GetTableName(), "data", rowid, data);
     }
 }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "RSM_Database.hpp"
 #include "RSM_Settings.hpp"
 #include "RSM_Internals.hpp"
@@ -7,7 +8,9 @@ namespace RSM_Kernel
 {
 	RSM_Database::RSM_Database()
 	{
-        mRSM_db = QSqlDatabase::addDatabase("QSQLITE");
+        auto db = QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
+
+        mRSM_db = QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
         QString dbPath = RSM_Settings().GetUniqueDbPath();
         mRSM_db.setDatabaseName(dbPath);
         mRSM_db.open();
@@ -31,7 +34,11 @@ namespace RSM_Kernel
     }
 
     //----------Methods-----------------------------------------------
-    void RSM_Database::Save(const QString& path, bool Owerrite = true)
+    const QSqlDatabase* RSM_Database::GetDatabase()
+    {
+        return &this->mRSM_db;
+    }
+    void RSM_Database::Save(const QString& path, bool Owerrite)
     {
         QString sourceDbPath = this->mRSM_db.databaseName();
         this->mRSM_db.commit();
@@ -51,5 +58,4 @@ namespace RSM_Kernel
         QFile::copy(sourceDbPath, path);
         QFile::remove(sourceDbPath);
     }
-
 }

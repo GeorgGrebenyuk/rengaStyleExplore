@@ -19,13 +19,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -37,12 +37,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>C:\Qt\5.9.3\5.9.3\msvc2017_64</QtInstall>
-    <QtModules>core;sql</QtModules>
+    <QtModules>core;sql;gui</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>C:\Qt\5.9.3\5.9.3\msvc2017_64</QtInstall>
-    <QtModules>core;sql</QtModules>
+    <QtModules>core;sql;gui</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -114,14 +114,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="RSM_Database.cpp" />
     <ClCompile Include="RSM_DatabaseTableBindata.cpp" />
     <ClCompile Include="RSM_DatabaseTableDbinfo.cpp" />
+    <ClCompile Include="RSM_DatabaseTableGeometry.cpp" />
+    <ClCompile Include="RSM_DatabaseTableIcons.cpp" />
     <ClCompile Include="RSM_DatabaseTablePaths.cpp" />
+    <ClCompile Include="RSM_DatabaseTableRengaProjects.cpp" />
     <ClCompile Include="RSM_DatabaseTablesProcessing.cpp" />
+    <ClCompile Include="RSM_GeometryObj.cpp" />
     <ClCompile Include="RSM_Internal.cpp" />
+    <ClCompile Include="RSM_RengaFileReading.cpp" />
     <ClCompile Include="RSM_Settings.cpp" />
+    <ClCompile Include="RSM_SqliteUtils.cpp" />
+    <ClInclude Include="Enumerations.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="rengastylesmanagerkernel_global.h" />
     <ClInclude Include="RengaStylesManagerKernel.h" />
@@ -129,10 +139,16 @@
     <ClInclude Include="RSM_Database.hpp" />
     <ClInclude Include="RSM_DatabaseTableBindata.hpp" />
     <ClInclude Include="RSM_DatabaseTableDbinfo.hpp" />
+    <ClInclude Include="RSM_DatabaseTableGeometry.hpp" />
+    <ClInclude Include="RSM_DatabaseTableIcons.hpp" />
     <ClInclude Include="RSM_DatabaseTablePaths.hpp" />
+    <ClInclude Include="RSM_DatabaseTableRengaProjects.hpp" />
     <ClInclude Include="RSM_DatabaseTablesProcessing.hpp" />
+    <ClInclude Include="RSM_GeometryObj.hpp" />
     <ClInclude Include="RSM_Internals.hpp" />
+    <ClInclude Include="RSM_RengaFileReading.hpp" />
     <ClInclude Include="RSM_Settings.hpp" />
+    <ClInclude Include="RSM_SqliteUtils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

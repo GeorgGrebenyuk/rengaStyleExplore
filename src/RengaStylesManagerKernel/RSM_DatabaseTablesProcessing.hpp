@@ -9,22 +9,16 @@ namespace RSM_Kernel
 	class RSM_DatabaseTablesProcessing
 	{
 	public:
-
 		/**@brief Возвращает наименование данной таблицы
 		*/
 		virtual const QString GetTableName() = 0;
 
 		/**@brief Создает определение таблицы при её отсутствии в БД
 		*/
-		virtual void CreateTableDefinition(const QSqlDatabase* db) = 0;
+		virtual void CreateTableDefinition() = 0;
 
-        void DeleteAllData(const QSqlDatabase* db);
-
-        void GetRowByRowid(const QSqlDatabase* db, const qint32 rowid, QSqlQuery* query);
-
-        qint32 GetMaxRowid(const QSqlDatabase* db);
-
-        bool ExecQuerry(const QSqlQuery* query);
+    protected:
+        const QSqlDatabase* m_db;
 	};
 
 
